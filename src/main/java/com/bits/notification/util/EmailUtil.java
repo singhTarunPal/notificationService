@@ -1,4 +1,4 @@
-package com.bits.util;
+package com.bits.notification.util;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;

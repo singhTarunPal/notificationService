@@ -9,17 +9,19 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 
-import com.bits.util.EmailUtil;
+import com.bits.notification.util.EmailUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-
-
 @SpringBootApplication
 @EnableAutoConfiguration
+@PropertySource({"classpath:application.properties"})
+@ComponentScan(basePackages = "com.bits.notification.*")
 public class NotificationService {
 
 	private final static String QUEUE_NAME = "lib_notif_queue";
