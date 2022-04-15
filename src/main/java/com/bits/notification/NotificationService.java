@@ -1,4 +1,4 @@
-package com.bits.notifiction;
+package com.bits.notification;
 
 import java.nio.charset.StandardCharsets;
 
@@ -25,7 +25,7 @@ import com.rabbitmq.client.DeliverCallback;
 public class NotificationService {
 
 	private final static String QUEUE_NAME = "lib_notif_queue";
-	private static final Logger LOGGER = LogManager.getLogger(NotificationService.class);
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(NotificationService.class, args);
@@ -40,16 +40,16 @@ public class NotificationService {
 			Channel channel = connection.createChannel();
 
 			channel.queueDeclare(QUEUE_NAME, true, false, false, null);
-			LOGGER.info(" [*] Waiting for messages. To exit press CTRL+C");
+			System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
 			DeliverCallback deliverCallback = (consumerTag, delivery) -> {
 				String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-				LOGGER.info(" [x] Received message:'" + message + "'");
+				System.out.println(" [x] Received message:'" + message + "'");
 				try {
 					String[] tokens = message.split("#");
 					EmailUtil.sendEmail(tokens[0], tokens[1]);
 				} catch (Exception e) {
-					LOGGER.info("Error occured while extracting email Id or the Email body");
+					System.out.println("Error occured while extracting email Id or the Email body");
 				}
 			};
 			channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
