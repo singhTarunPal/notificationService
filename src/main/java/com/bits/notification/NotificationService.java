@@ -4,15 +4,13 @@ import java.nio.charset.StandardCharsets;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
-import com.bits.notification.util.EmailUtil;
+import com.bits.notification.util.OutlookEmailUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -47,7 +45,7 @@ public class NotificationService {
 				System.out.println(" [x] Received message:'" + message + "'");
 				try {
 					String[] tokens = message.split("#");
-					EmailUtil.sendEmail(tokens[0], tokens[1]);
+					OutlookEmailUtil.sendEmail(tokens[0], tokens[1]);
 				} catch (Exception e) {
 					System.out.println("Error occured while extracting email Id or the Email body");
 				}

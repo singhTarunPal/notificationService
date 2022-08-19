@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-public class EmailUtil {
+public class GmailEmailUtil {
 
 	
 	private static String host="smtp.gmail.com";
@@ -26,7 +26,7 @@ public class EmailUtil {
     private static String username="lib.system.tarunpalsingh@gmail.com";
     private static String password="tarunpal@12345";
     
-    private static final Logger LOGGER = LogManager.getLogger(EmailUtil.class);
+    private static final Logger LOGGER = LogManager.getLogger(GmailEmailUtil.class);
 	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
@@ -104,9 +104,7 @@ public class EmailUtil {
           message.setText(body);    
           //send message  
           Transport.send(message);    
-          System.out.println("message sent successfully");    
-
-	         LOGGER.info(subject + " ||| Email sent successfully to: " + toEmail );
+          LOGGER.info(subject + " ||| Email sent successfully to: " + toEmail );
 
 	    }
 	    catch (Exception e) {
